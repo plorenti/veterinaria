@@ -8,7 +8,7 @@ class Mascota():
     id= 0
     listadoMascotas =[]
 
-
+    
     def __init__(self,nombre,especie,raza,edad,dueno,telefono):
         self.nombre=nombre
         self.especie=especie
@@ -21,17 +21,25 @@ class Mascota():
     def __str__(self):
         return f'ID: {self.id} - Nombre: {self.nombre} - Raza: {self.raza} - Edad: {self.edad} - Nombre del dueño: {self.dueno} - Telefono: {self.telefono}'
 
+    #Funcion agregar mascota. Agrega en una lista y TODO: guardar en base de datos
     def AgregarMascota(self):
         Mascota.id+=1
         Mascota.listadoMascotas.append(self)
 
 mascota = Mascota("","","","","","")
 
-def DatosMascotaNueva():
+'''
+La idea de tener separado el DatosMascotas y CrearMascota es para reutilizar el codigo que captura los datos del usuario y poder implementar por ejemplo
+el EditarMascota. Donde los datos que se solicitarían serían los mismos para crear una nueva.
+Otra opcion que se me ocurre y no se si es mejor o peor sería, agrupar todo en una funcion y a esa funcion se le pase por parametro que acción se va a realizar.
+Por ejemplo enviar por parametro el ID de la mascota, en caso de ser 0 crear una mascota nueva y sino usar el ID para editar una mascota existente.
+'''
+def DatosMascota():
     '''
     Valida la información ingresada por el usuario
     Devuelte una lista con los datos para crear el objeto Mascota
     '''
+    #Inicializo las variables para tomar los datos del usuario
     print("Ingrese los datos de la mascota o para volver al menu principal presione X")
     print("-"*75)
     valido = True
@@ -43,6 +51,7 @@ def DatosMascotaNueva():
     dueno=''
     telefono=''    
     
+    #Prompt para ingresar datos. Repite mientras no tenga datos. Se sale con X
     while len(nombre)<=0:            
         nombre = input("Ingrese el nombre de la mascota: ")
         if nombre == "x" or nombre =="X":
@@ -96,6 +105,7 @@ def DatosMascotaNueva():
         
         datos.append(telefono)
 
+    #Confirmo si se completaron todos los datos devuelve una lista con los datos. Sino o se cancelo el ingreso se devuelve un false
     if valido:
         return datos
     else:
@@ -103,7 +113,7 @@ def DatosMascotaNueva():
         return False
 
 def CrearMascota():
-    datos = DatosMascotaNueva()
+    datos = DatosMascota()
 
     #print(datos)
 
